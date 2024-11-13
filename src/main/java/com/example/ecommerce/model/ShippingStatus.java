@@ -15,5 +15,5 @@ public class ShippingStatus {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String string;
+    private String name;
 }

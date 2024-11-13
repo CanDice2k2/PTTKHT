@@ -107,52 +107,52 @@ public class ProductServiceImplementation implements ProductService {
 
 	@Override
 	public Product updateProduct(UpdateProductRequest req) throws ProductException {
-		try {
-		Product product=findProductById(req.getId());
-		System.out.println("product da tim duoc - "+product);
-		System.out.println("request - "+req);
-		if(req.getQuantity()!=0) {
-			product.setQuantity(req.getQuantity());
-		}
-		if(req.getDescription()!=null) {
-			product.setDescription(req.getDescription());
-		}
-		if(req.getDiscountedPrice()!=0) {
-			product.setDiscountedPrice(req.getDiscountedPrice());
-		}
-		if(req.getDiscountPersent()!=0) {
-			product.setDiscountPersent(req.getDiscountPersent());
-		}
-		if(req.getImageUrl()!=null) {
-			product.setImageUrl(req.getImageUrl());
-		}
-		if(req.getBrand()!=null) {
-			product.setBrand(req.getBrand());
-		}
-		if(req.getPrice()!=0) {
-			product.setPrice(req.getPrice());
-		}
-		if(req.getColor()!=null) {
-			product.setColor(req.getColor());
-		}
-		if(req.getTitle()!=null) {
-			product.setTitle(req.getTitle());
-		}
-		if(req.getSizes()!=null) {
-			product.setSizes(req.getSizes());
-		}
-		if(req.getTopLavelCategory()!=null && req.getSecondLavelCategory()!=null && req.getThirdLavelCategory()!=null) {
-			Category topLevel = categoryRepository.findByName(req.getTopLavelCategory());
-			Category secondLevel = categoryRepository.findByNameAndParantId(req.getSecondLavelCategory(), topLevel.getId());
-			Category thirdLevel = categoryRepository.findByNameAndParantId(req.getThirdLavelCategory(), secondLevel.getId());
-			product.setCategory(thirdLevel);
-		}
-			return productRepository.save(product);
-
-		}
-		catch (Exception e) {
-			System.out.println("error - "+e);
-		}
+//		try {
+//		Product product=findProductById(req.getId());
+//		System.out.println("product da tim duoc - "+product);
+//		System.out.println("request - "+req);
+//		if(req.getQuantity()!=0) {
+//			product.setQuantity(req.getQuantity());
+//		}
+//		if(req.getDescription()!=null) {
+//			product.setDescription(req.getDescription());
+//		}
+//		if(req.getDiscountedPrice()!=0) {
+//			product.setDiscountedPrice(req.getDiscountedPrice());
+//		}
+//		if(req.getDiscountPersent()!=0) {
+//			product.setDiscountPersent(req.getDiscountPersent());
+//		}
+//		if(req.getImageUrl()!=null) {
+//			product.setImageUrl(req.getImageUrl());
+//		}
+//		if(req.getBrand()!=null) {
+//			product.setBrand(req.getBrand());
+//		}
+//		if(req.getPrice()!=0) {
+//			product.setPrice(req.getPrice());
+//		}
+//		if(req.getColor()!=null) {
+//			product.setColor(req.getColor());
+//		}
+//		if(req.getTitle()!=null) {
+//			product.setTitle(req.getTitle());
+//		}
+//		if(req.getSizes()!=null) {
+//			product.setSizes(req.getSizes());
+//		}
+//		if(req.getTopLavelCategory()!=null && req.getSecondLavelCategory()!=null && req.getThirdLavelCategory()!=null) {
+//			Category topLevel = categoryRepository.findByName(req.getTopLavelCategory());
+//			Category secondLevel = categoryRepository.findByNameAndParantId(req.getSecondLavelCategory(), topLevel.getId());
+//			Category thirdLevel = categoryRepository.findByNameAndParantId(req.getThirdLavelCategory(), secondLevel.getId());
+//			product.setCategory(thirdLevel);
+//		}
+//			return productRepository.save(product);
+//
+//		}
+//		catch (Exception e) {
+//			System.out.println("error - "+e);
+//		}
 		return null;
 	}
 
