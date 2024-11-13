@@ -1,14 +1,14 @@
-package com.nhom6.service;
+package com.example.ecommerce.service;
 
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.nhom6.config.JwtTokenProvider;
-import com.nhom6.exception.UserException;
-import com.nhom6.modal.User;
-import com.nhom6.repository.UserRepository;
+import com.example.ecommerce.config.JwtTokenProvider;
+import com.example.ecommerce.exception.UserException;
+import com.example.ecommerce.model.User;
+import com.example.ecommerce.repository.UserRepository;
 
 @Service
 public class UserServiceImplementation implements UserService {

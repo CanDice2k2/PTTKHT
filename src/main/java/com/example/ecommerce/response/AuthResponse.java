@@ -1,4 +1,4 @@
-package com.nhom6.response;
+package com.example.ecommerce.response;
 
 public class AuthResponse {
 	

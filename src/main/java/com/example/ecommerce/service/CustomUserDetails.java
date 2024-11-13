@@ -1,4 +1,4 @@
-package com.nhom6.service;
+package com.example.ecommerce.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,8 +9,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.nhom6.modal.User;
-import com.nhom6.repository.UserRepository;
+import com.example.ecommerce.model.User;
+import com.example.ecommerce.repository.UserRepository;
 
 @Service
 public class CustomUserDetails implements UserDetailsService {

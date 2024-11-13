@@ -1,10 +1,10 @@
-package com.nhom6.service;
+package com.example.ecommerce.service;
 
-import com.nhom6.exception.CartItemException;
-import com.nhom6.exception.UserException;
-import com.nhom6.modal.Cart;
-import com.nhom6.modal.CartItem;
-import com.nhom6.modal.Product;
+import com.example.ecommerce.exception.CartItemException;
+import com.example.ecommerce.exception.UserException;
+import com.example.ecommerce.model.Cart;
+import com.example.ecommerce.model.CartItem;
+import com.example.ecommerce.model.Product;
 
 public interface CartItemService {
 	

@@ -2,6 +2,7 @@ package com.example.ecommerce.service;
 
 import java.util.List;
 
+import com.example.ecommerce.request.CreateProductRequest;
 import com.example.ecommerce.request.UpdateProductRequest;
 import org.springframework.data.domain.Page;
 import com.example.ecommerce.model.Product;

@@ -1,11 +1,11 @@
-package com.nhom6.controller;
+package com.example.ecommerce.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nhom6.response.ApiResponse;
+import com.example.ecommerce.response.ApiResponse;
 
 @RestController
 public class HomeController {

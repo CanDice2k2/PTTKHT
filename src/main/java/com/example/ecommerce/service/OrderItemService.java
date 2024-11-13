@@ -1,6 +1,6 @@
-package com.nhom6.service;
+package com.example.ecommerce.service;
 
-import com.nhom6.modal.OrderItem;
+import com.example.ecommerce.model.OrderItem;
 
 public interface OrderItemService {
 	

@@ -1,4 +1,4 @@
-package com.nhom6.controller;
+package com.example.ecommerce.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nhom6.exception.CartItemException;
-import com.nhom6.exception.UserException;
-import com.nhom6.modal.CartItem;
-import com.nhom6.modal.User;
-import com.nhom6.response.ApiResponse;
-import com.nhom6.service.CartItemService;
-import com.nhom6.service.UserService;
+import com.example.ecommerce.exception.CartItemException;
+import com.example.ecommerce.exception.UserException;
+import com.example.ecommerce.model.CartItem;
+import com.example.ecommerce.model.User;
+import com.example.ecommerce.response.ApiResponse;
+import com.example.ecommerce.service.CartItemService;
+import com.example.ecommerce.service.UserService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 

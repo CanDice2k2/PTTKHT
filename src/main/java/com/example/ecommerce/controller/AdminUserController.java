@@ -1,4 +1,4 @@
-package com.nhom6.controller;
+package com.example.ecommerce.controller;
 
 import java.util.List;
 
@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nhom6.exception.UserException;
-import com.nhom6.modal.User;
-import com.nhom6.service.UserService;
+import com.example.ecommerce.exception.UserException;
+import com.example.ecommerce.model.User;
+import com.example.ecommerce.service.UserService;
 
 @RestController
 @RequestMapping("/api/admin")

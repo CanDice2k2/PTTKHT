@@ -1,8 +1,8 @@
-package com.nhom6.service;
+package com.example.ecommerce.service;
 
-import com.nhom6.modal.User;
-import com.nhom6.repository.UserRepository;
-import com.nhom6.user.domain.UserRole;
+import com.example.ecommerce.model.User;
+import com.example.ecommerce.repository.UserRepository;
+import com.example.ecommerce.user.domain.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;

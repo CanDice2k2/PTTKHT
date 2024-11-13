@@ -1,9 +1,9 @@
-package com.nhom6.service;
+package com.example.ecommerce.service;
 
 import org.springframework.stereotype.Service;
 
-import com.nhom6.modal.OrderItem;
-import com.nhom6.repository.OrderItemRepository;
+import com.example.ecommerce.model.OrderItem;
+import com.example.ecommerce.repository.OrderItemRepository;
 
 @Service
 public class OrderItemServiceImplementation implements OrderItemService {

@@ -1,11 +1,11 @@
-package com.nhom6.service;
+package com.example.ecommerce.service;
 
 import java.util.List;
 
-import com.nhom6.exception.OrderException;
-import com.nhom6.modal.Address;
-import com.nhom6.modal.Order;
-import com.nhom6.modal.User;
+import com.example.ecommerce.exception.OrderException;
+import com.example.ecommerce.model.Address;
+import com.example.ecommerce.model.Order;
+import com.example.ecommerce.model.User;
 
 public interface OrderService {
 	

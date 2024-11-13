@@ -1,4 +1,4 @@
-package com.nhom6.service;
+package com.example.ecommerce.service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -6,12 +6,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import com.nhom6.modal.*;
-import com.nhom6.repository.*;
+import com.example.ecommerce.model.*;
+import com.example.ecommerce.repository.*;
 import org.springframework.stereotype.Service;
 
-import com.nhom6.exception.OrderException;
-import com.nhom6.user.domain.OrderStatus;
+import com.example.ecommerce.exception.OrderException;
+import com.example.ecommerce.user.domain.OrderStatus;
 
 @Service
 public class OrderServiceImplementation implements OrderService {

@@ -1,4 +1,4 @@
-package com.nhom6.request;
+package com.example.ecommerce.request;
 
 public class ReviewRequest {
 	

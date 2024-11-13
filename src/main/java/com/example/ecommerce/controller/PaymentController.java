@@ -1,8 +1,8 @@
-package com.nhom6.controller;
+package com.example.ecommerce.controller;
 
-import com.nhom6.modal.Cart;
-import com.nhom6.repository.CartItemRepository;
-import com.nhom6.repository.CartRepository;
+import com.example.ecommerce.modal.Cart;
+import com.example.ecommerce.repository.CartItemRepository;
+import com.example.ecommerce.repository.CartRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nhom6.exception.OrderException;
-import com.nhom6.exception.UserException;
-import com.nhom6.modal.Order;
-import com.nhom6.repository.OrderRepository;
-import com.nhom6.response.PaymentLinkResponse;
-import com.nhom6.service.OrderService;
-import com.nhom6.service.UserService;
+import com.example.ecommerce.exception.OrderException;
+import com.example.ecommerce.exception.UserException;
+import com.example.ecommerce.modal.Order;
+import com.example.ecommerce.repository.OrderRepository;
+import com.example.ecommerce.response.PaymentLinkResponse;
+import com.example.ecommerce.service.OrderService;
+import com.example.ecommerce.service.UserService;
 import com.razorpay.RazorpayException;
 
 @RestController

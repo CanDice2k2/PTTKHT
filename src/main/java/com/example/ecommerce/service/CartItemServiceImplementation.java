@@ -1,17 +1,17 @@
-package com.nhom6.service;
+package com.example.ecommerce.service;
 
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.nhom6.exception.CartItemException;
-import com.nhom6.exception.UserException;
-import com.nhom6.modal.Cart;
-import com.nhom6.modal.CartItem;
-import com.nhom6.modal.Product;
-import com.nhom6.modal.User;
-import com.nhom6.repository.CartItemRepository;
-import com.nhom6.repository.CartRepository;
+import com.example.ecommerce.exception.CartItemException;
+import com.example.ecommerce.exception.UserException;
+import com.example.ecommerce.model.Cart;
+import com.example.ecommerce.model.CartItem;
+import com.example.ecommerce.model.Product;
+import com.example.ecommerce.model.User;
+import com.example.ecommerce.repository.CartItemRepository;
+import com.example.ecommerce.repository.CartRepository;
 
 @Service
 public class CartItemServiceImplementation implements CartItemService {

@@ -1,17 +1,17 @@
-package com.nhom6.service;
+package com.example.ecommerce.service;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.nhom6.exception.ProductException;
-import com.nhom6.modal.Product;
-import com.nhom6.modal.Review;
-import com.nhom6.modal.User;
-import com.nhom6.repository.ProductRepository;
-import com.nhom6.repository.ReviewRepository;
-import com.nhom6.request.ReviewRequest;
+import com.example.ecommerce.exception.ProductException;
+import com.example.ecommerce.model.Product;
+import com.example.ecommerce.model.Review;
+import com.example.ecommerce.model.User;
+import com.example.ecommerce.repository.ProductRepository;
+import com.example.ecommerce.repository.ReviewRepository;
+import com.example.ecommerce.request.ReviewRequest;
 
 @Service
 public class ReviewServiceImplementation implements ReviewService {

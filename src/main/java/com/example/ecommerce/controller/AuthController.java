@@ -1,4 +1,4 @@
-package com.nhom6.controller;
+package com.example.ecommerce.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,14 +13,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nhom6.config.JwtTokenProvider;
-import com.nhom6.exception.UserException;
-import com.nhom6.modal.User;
-import com.nhom6.repository.UserRepository;
-import com.nhom6.request.LoginRequest;
-import com.nhom6.response.AuthResponse;
-import com.nhom6.service.CartService;
-import com.nhom6.service.CustomUserDetails;
+import com.example.ecommerce.config.JwtTokenProvider;
+import com.example.ecommerce.exception.UserException;
+import com.example.ecommerce.model.User;
+import com.example.ecommerce.repository.UserRepository;
+import com.example.ecommerce.request.LoginRequest;
+import com.example.ecommerce.response.AuthResponse;
+import com.example.ecommerce.service.CartService;
+import com.example.ecommerce.service.CustomUserDetails;
 
 import jakarta.validation.Valid;
 

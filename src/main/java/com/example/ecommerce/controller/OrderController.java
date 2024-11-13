@@ -1,4 +1,4 @@
-package com.nhom6.controller;
+package com.example.ecommerce.controller;
 
 import java.util.List;
 
@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nhom6.exception.OrderException;
-import com.nhom6.exception.UserException;
-import com.nhom6.modal.Address;
-import com.nhom6.modal.Order;
-import com.nhom6.modal.User;
-import com.nhom6.service.OrderService;
-import com.nhom6.service.UserService;
+import com.example.ecommerce.exception.OrderException;
+import com.example.ecommerce.exception.UserException;
+import com.example.ecommerce.model.Address;
+import com.example.ecommerce.model.Order;
+import com.example.ecommerce.model.User;
+import com.example.ecommerce.service.OrderService;
+import com.example.ecommerce.service.UserService;
 
 @RestController
 @RequestMapping("/api/orders")

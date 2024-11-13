@@ -1,4 +1,4 @@
-package com.nhom6.exception;
+package com.example.ecommerce.exception;
 
 import java.time.LocalDateTime;
 

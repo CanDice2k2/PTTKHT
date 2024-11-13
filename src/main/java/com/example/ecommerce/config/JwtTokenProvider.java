@@ -1,4 +1,4 @@
-package com.nhom6.config;
+package com.example.ecommerce.config;
 
 import java.util.Collection;
 import java.util.Date;
