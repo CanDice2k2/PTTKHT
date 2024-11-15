@@ -1,5 +1,6 @@
 package com.example.ecommerce.controller;
 
+import com.example.ecommerce.model.UserRole;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -19,10 +20,12 @@ import com.example.ecommerce.model.User;
 import com.example.ecommerce.repository.UserRepository;
 import com.example.ecommerce.request.LoginRequest;
 import com.example.ecommerce.response.AuthResponse;
-import com.example.ecommerce.service.CartService;
+//import com.example.ecommerce.service.CartService;
 import com.example.ecommerce.service.CustomUserDetails;
 
 import jakarta.validation.Valid;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/auth")
@@ -32,14 +35,14 @@ public class AuthController {
 	private PasswordEncoder passwordEncoder;
 	private JwtTokenProvider jwtTokenProvider;
 	private CustomUserDetails customUserDetails;
-	private CartService cartService;
+//	private CartService cartService;
 	
-	public AuthController(UserRepository userRepository,PasswordEncoder passwordEncoder,JwtTokenProvider jwtTokenProvider,CustomUserDetails customUserDetails,CartService cartService) {
+	public AuthController(UserRepository userRepository,PasswordEncoder passwordEncoder,JwtTokenProvider jwtTokenProvider,CustomUserDetails customUserDetails) {
 		this.userRepository=userRepository;
 		this.passwordEncoder=passwordEncoder;
 		this.jwtTokenProvider=jwtTokenProvider;
 		this.customUserDetails=customUserDetails;
-		this.cartService=cartService;
+//		this.cartService=cartService;
 	}
 	
 	@PostMapping("/signup")
@@ -47,9 +50,9 @@ public class AuthController {
 		
 		  	String email = user.getEmail();
 	        String password = user.getPassword();
-	        String firstName=user.getFirstName();
-	        String lastName=user.getLastName();
-	        String role=user.getRole();
+	        String firstName=user.getFullName().getFirstName();
+	        String lastName = user.getFullName().getLastName();
+			List<UserRole> role = user.getUserRoleList();
 	        
 	        User isEmailExist=userRepository.findByEmail(email);
 
@@ -60,16 +63,17 @@ public class AuthController {
 	        }
 
 	        // Create new user
-			User createdUser= new User();
-			createdUser.setEmail(email);
-			createdUser.setFirstName(firstName);
-			createdUser.setLastName(lastName);
-	        createdUser.setPassword(passwordEncoder.encode(password));
-	        createdUser.setRole(role);
+//			User createdUser= new User();
+//			createdUser.setEmail(email);
+//			createdUser.setFullName(user.getFullName());
+//	        createdUser.setFirstName(firstName);
+//			createdUser.setLastName(lastName);
+//	        createdUser.setPassword(passwordEncoder.encode(password));
+//	        createdUser.setRole(role);
+//
+//	        User savedUser= userRepository.save(createdUser);
 	        
-	        User savedUser= userRepository.save(createdUser);
-	        
-	        cartService.createCart(savedUser);
+//	        cartService.createCart(savedUser);
 
 	        Authentication authentication = new UsernamePasswordAuthenticationToken(email, password);
 	        SecurityContextHolder.getContext().setAuthentication(authentication);

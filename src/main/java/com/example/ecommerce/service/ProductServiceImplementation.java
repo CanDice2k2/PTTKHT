@@ -7,7 +7,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import com.example.ecommerce.model.Size;
+import com.example.ecommerce.model.*;
 import com.example.ecommerce.request.UpdateProductRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -16,15 +16,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.ecommerce.exception.ProductException;
-import com.example.ecommerce.model.Category;
-import com.example.ecommerce.model.Product;
 import com.example.ecommerce.repository.CategoryRepository;
 import com.example.ecommerce.repository.ProductRepository;
 import com.example.ecommerce.request.CreateProductRequest;
 
 @Service
 public class ProductServiceImplementation implements ProductService {
-	
+
 	private ProductRepository productRepository;
 	private UserService userService;
 	private CategoryRepository categoryRepository;
@@ -38,69 +36,89 @@ public class ProductServiceImplementation implements ProductService {
 
 	@Override
 	public Product createProduct(CreateProductRequest req) {
-		
-		Category topLevel = categoryRepository.findByName(req.getTopLavelCategory());
+		Category category = categoryRepository.findByName(req.getCategoryName());
+		Product product = null;
 
-		if(topLevel==null) {
-			Category topLavelCategory=new Category();
-			topLavelCategory.setName(req.getTopLavelCategory());
-			topLavelCategory.setLevel(1);
-			
-			topLevel= categoryRepository.save(topLavelCategory);
+		if (category.getName().equals("book")) {
+			// Add book
+			product = new Book();
+			((Book) product).setLanguage(req.getLanguage());
+			((Book) product).setAuthorBookList(req.getAuthorBookList());
+			((Book) product).setType(req.getType());
+			((Book) product).setPublicationDate(req.getPublicationDate());
+		} else if (category.getName().equals("clothes")) {
+			// Add clothes
+			product = new Clothes();
+			((Clothes) product).setBrand(req.getBrand());
+			((Clothes) product).setColor(req.getColor());
+			((Clothes) product).setGender(req.getGender());
+			((Clothes) product).setMaterial(req.getMaterial());
+			((Clothes) product).setSize(req.getSize());
+			((Clothes) product).setPattern(req.getPattern());
+		} else if (category.getName().equals("shoes")) {
+			// Add shoes
+			product = new Shoes();
+			((Shoes) product).setBrand(req.getBrand());
+			((Shoes) product).setColor(req.getColor());
+			((Shoes) product).setGender(req.getGender());
+			((Shoes) product).setMaterial(req.getMaterial());
+			((Shoes) product).setSize(req.getSize());
+			((Shoes) product).setSoleType(req.getSoleType());
+		} else if (category.getName().equals("laptop")) {
+			// Add laptop
+			product = new Laptop();
+			((Laptop) product).setOs(req.getOs());
+			((Laptop) product).setBrand(req.getBrand());
+			((Laptop) product).setWeight(req.getWeight());
+			((Laptop) product).setDimensions(req.getDimensions());
+			((Laptop) product).setColor(req.getColor());
+			((Laptop) product).setStorage(req.getStorage());
+			((Laptop) product).setRam(req.getRam());
+			((Laptop) product).setProcessor(req.getProcessor());
+			((Laptop) product).setKeyboardType(req.getKeyboardType());
+		} else if (category.getName().equals("mobile phone")) {
+			// Add mobile phone
+			product = new MobilePhone();
+			((MobilePhone) product).setOs(req.getOs());
+			((MobilePhone) product).setBrand(req.getBrand());
+			((MobilePhone) product).setWeight(req.getWeight());
+			((MobilePhone) product).setDimensions(req.getDimensions());
+			((MobilePhone) product).setColor(req.getColor());
+			((MobilePhone) product).setStorage(req.getStorage());
+			((MobilePhone) product).setRam(req.getRam());
+			((MobilePhone) product).setProcessor(req.getProcessor());
+			((MobilePhone) product).setCameraSpecifications(req.getCameraSpecifications());
 		}
-		System.out.println("top level - "+topLevel);
-		Category secondLevel = categoryRepository.findByNameAndParantId(req.getSecondLavelCategory(),topLevel.getId());
-		if(secondLevel==null) {
-			Category secondLavelCategory=new Category();
-			secondLavelCategory.setName(req.getSecondLavelCategory());
-			secondLavelCategory.setParentCategory(topLevel);
-			secondLavelCategory.setLevel(2);
-			
-			secondLevel= categoryRepository.save(secondLavelCategory);
-		}
-		System.out.println("second level - "+secondLevel);
-		Category thirdLevel = categoryRepository.findByNameAndParantId(req.getThirdLavelCategory(),secondLevel.getId());
-		if(thirdLevel==null) {
-			Category thirdLavelCategory=new Category();
-			thirdLavelCategory.setName(req.getThirdLavelCategory());
-			thirdLavelCategory.setParentCategory(secondLevel);
-			thirdLavelCategory.setLevel(3);
-			
-			thirdLevel=categoryRepository.save(thirdLavelCategory);
-		}
-		System.out.println("third level - "+thirdLevel);
 
-		Product product=new Product();
-		product.setTitle(req.getTitle());
-		product.setColor(req.getColor());
-		product.setDescription(req.getDescription());
-		product.setDiscountedPrice(req.getDiscountedPrice());
-		product.setDiscountPersent(req.getDiscountPersent());
-		product.setImageUrl(req.getImageUrl());
-		product.setBrand(req.getBrand());
-		product.setPrice(req.getPrice());
-		product.setSizes(req.getSize());
-		product.setQuantity(req.getQuantity());
-		product.setCategory(thirdLevel);
-		product.setCreatedAt(LocalDateTime.now());
-		
-		Product savedProduct= productRepository.save(product);
-		
-		System.out.println("products - "+product);
-		
-		return savedProduct;
+		if (product != null) {
+			product.setCategory(category);
+			product.setName(req.getName());
+			product.setPrice(req.getPrice());
+
+			// Set the product reference in each ProductImage
+			for (ProductImage image : req.getProductImageList()) {
+				image.setProduct(product);
+			}
+
+			product.setProductImageList(req.getProductImageList());
+			product.setDescription(req.getDescription());
+			product.setQuantityInStock(req.getQuantityInStock());
+			return productRepository.save(product);
+		}
+
+		return null;
 	}
 
 	@Override
 	public String deleteProduct(Long productId) throws ProductException {
 		
-		Product product=findProductById(productId);
-		System.out.println("product - "+product);
-		System.out.println("delete product "+product.getId()+" - "+productId);
-		product.getSizes().clear();
-//		productRepository.save(product);
-//		product.getCategory().
-		productRepository.delete(product);
+//		Product product=findProductById(productId);
+//		System.out.println("product - "+product);
+//		System.out.println("delete product "+product.getId()+" - "+productId);
+//		product.getSizes().clear();
+////		productRepository.save(product);
+////		product.getCategory().
+//		productRepository.delete(product);
 		
 		return "Product deleted Successfully";
 	}
@@ -179,15 +197,17 @@ public class ProductServiceImplementation implements ProductService {
 //		Category thirdLevel = categoryRepository.findByNameAndParantId(req.getThirdLavelCategory(),secondLevel.getId());
 //		System.out.println("category --- "+category);
 		
-		List<Product> products = productRepository.findByCategory(category);
-		
-		return products;
+//		List<Product> products = productRepository.findByCategory(category);
+
+//		return products;
+		return null;
 	}
 
 	@Override
 	public List<Product> searchProduct(String query) {
-		List<Product> products=productRepository.searchProduct(query);
-		return products;
+//		List<Product> products=productRepository.searchProduct(query);
+//		return products;
+		return null;
 	}
 
 
@@ -199,76 +219,77 @@ public class ProductServiceImplementation implements ProductService {
 			List<String> sizes, Integer minPrice, Integer maxPrice,
 			Integer minDiscount,String sort, String stock, Integer pageNumber, Integer pageSize ) {
 
-		Pageable pageable = PageRequest.of(pageNumber, pageSize);
-		List<Product> products = null;
+//		Pageable pageable = PageRequest.of(pageNumber, pageSize);
+//		List<Product> products = null;
+//
+//		if(category != null && category != "") {
+//			System.out.println("category - "+category.split("/").length);
+//			// dung cho admin
+//			if(category.split("/").length == 1) {
+//				products = productRepository.filterProducts3(category, minPrice, maxPrice, minDiscount, sort);
+//			}
+//			else {
+//			try {
+//				String lavelOne = category.split("/")[0];
+//				String lavelTwo = category.split("/")[1];
+//				String lavelThree = category.split("/")[2];
+//
+//				Category topLevel = categoryRepository.findByName(lavelOne);
+//				Category secondLevel = categoryRepository.findByNameAndParantId(lavelTwo, topLevel.getId());
+//				Category thirdLevel = categoryRepository.findByNameAndParantId(lavelThree, secondLevel.getId());
+//
+//				//System.out.println("top level - "+topLevel);
+//				//System.out.println("second level - "+secondLevel);
+//				System.out.println("third level - "+thirdLevel);
+//				System.out.println(thirdLevel.getId() + "  " +  minPrice + "  " + maxPrice + "  " + minDiscount + "  " + sort);
+//				products = productRepository.filterProducts(thirdLevel.getId(), minPrice, maxPrice, minDiscount, sort);
+//			}
+//			catch (Exception e) {
+//				System.out.println("error - "+e);
+//				System.out.println("loi roi em oi");
+//			}
+//			}
+//
+//		}
+//		else{
+//			products = productRepository.filterProducts2( minPrice, maxPrice, minDiscount, sort);
+//		}
+//
+//		if (!colors.isEmpty()) {
+//			products = products.stream()
+//			        .filter(p -> colors.stream().anyMatch(c -> c.equalsIgnoreCase(p.getColor())))
+//			        .collect(Collectors.toList());
+//
+//
+//		}
+//
+//		if(stock!=null) {
+//
+//			if(stock.equals("in_stock")) {
+//				products=products.stream().filter(p->p.getQuantity()>0).collect(Collectors.toList());
+//			}// neu stock = in_stock thi lay nhung san pham co so luong >0
+//			else if (stock.equals("out_of_stock")) {
+//				products=products.stream().filter(p->p.getQuantity()<1).collect(Collectors.toList());
+//			}// neu stock = out_of_stock thi lay nhung san pham co so luong <1
+//
+//
+//		}
+//		int startIndex = (int) pageable.getOffset();
+//		int endIndex = Math.min(startIndex + pageable.getPageSize(), products.size());
+//
+//		List<Product> pageContent = products.subList(startIndex, endIndex);
+//		Page<Product> filteredProducts = new PageImpl<>(pageContent, pageable, products.size());
+//	    return filteredProducts; // If color list is empty, do nothing and return all products
 
-		if(category != null && category != "") {
-			System.out.println("category - "+category.split("/").length);
-			// dung cho admin
-			if(category.split("/").length == 1) {
-				products = productRepository.filterProducts3(category, minPrice, maxPrice, minDiscount, sort);
-			}
-			else {
-			try {
-				String lavelOne = category.split("/")[0];
-				String lavelTwo = category.split("/")[1];
-				String lavelThree = category.split("/")[2];
-
-				Category topLevel = categoryRepository.findByName(lavelOne);
-				Category secondLevel = categoryRepository.findByNameAndParantId(lavelTwo, topLevel.getId());
-				Category thirdLevel = categoryRepository.findByNameAndParantId(lavelThree, secondLevel.getId());
-
-				//System.out.println("top level - "+topLevel);
-				//System.out.println("second level - "+secondLevel);
-				System.out.println("third level - "+thirdLevel);
-				System.out.println(thirdLevel.getId() + "  " +  minPrice + "  " + maxPrice + "  " + minDiscount + "  " + sort);
-				products = productRepository.filterProducts(thirdLevel.getId(), minPrice, maxPrice, minDiscount, sort);
-			}
-			catch (Exception e) {
-				System.out.println("error - "+e);
-				System.out.println("loi roi em oi");
-			}
-			}
-
-		}
-		else{
-			products = productRepository.filterProducts2( minPrice, maxPrice, minDiscount, sort);
-		}
-
-		if (!colors.isEmpty()) {
-			products = products.stream()
-			        .filter(p -> colors.stream().anyMatch(c -> c.equalsIgnoreCase(p.getColor())))
-			        .collect(Collectors.toList());
-
-
-		}
-
-		if(stock!=null) {
-
-			if(stock.equals("in_stock")) {
-				products=products.stream().filter(p->p.getQuantity()>0).collect(Collectors.toList());
-			}// neu stock = in_stock thi lay nhung san pham co so luong >0
-			else if (stock.equals("out_of_stock")) {
-				products=products.stream().filter(p->p.getQuantity()<1).collect(Collectors.toList());
-			}// neu stock = out_of_stock thi lay nhung san pham co so luong <1
-
-
-		}
-		int startIndex = (int) pageable.getOffset();
-		int endIndex = Math.min(startIndex + pageable.getPageSize(), products.size());
-
-		List<Product> pageContent = products.subList(startIndex, endIndex);
-		Page<Product> filteredProducts = new PageImpl<>(pageContent, pageable, products.size());
-	    return filteredProducts; // If color list is empty, do nothing and return all products
-
-
+		return null;
 	}
 
 
 	@Override
 	public List<Product> recentlyAddedProduct() {
 		
-		return productRepository.findTop10ByOrderByCreatedAtDesc();
+//		return productRepository.findTop10ByOrderByCreatedAtDesc();
+		return null;
 	}
 
 }

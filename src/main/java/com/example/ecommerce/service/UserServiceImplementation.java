@@ -57,7 +57,8 @@ public class UserServiceImplementation implements UserService {
 	@Override
 	public List<User> findAllUsers() {
 		// TODO Auto-generated method stub
-		return userRepository.findAllByOrderByCreatedAtDesc();
+//		return userRepository.findAllByOrderByCreatedAtDesc();
+		return null;
 	}
 
 }

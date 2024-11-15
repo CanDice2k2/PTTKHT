@@ -1,139 +1,78 @@
 package com.example.ecommerce.request;
 
+import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
-import com.example.ecommerce.model.Size;
+import com.example.ecommerce.model.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-
+@Data
+@NoArgsConstructor
 public class CreateProductRequest {
-	
-    private String title;
 
-    private String description;
+	private String name;
 
-    private int price;
+	private String description;
 
-    private int discountedPrice;
-   
-    private int discountPersent;
+	private Integer quantityInStock;
 
-    private int quantity;
+	private Float price;
 
-    private String brand;
+	private List<ProductImage> productImageList;
 
-    private String color;
+	//book
+	private String type;
 
-    private Set<Size> size=new HashSet<>();
+	private Date publicationDate;
 
-    private String imageUrl;
+	private String language;
 
-    private String topLavelCategory;
-    private String secondLavelCategory;
-    private String thirdLavelCategory;
+	private List<AuthorBook> authorBookList;
 
-	public Set<Size> getSize() {
-		return size;
-	}
-	public void setSize(Set<Size> size) {
-		this.size = size;
-	}
+	//clothes
+	private String pattern;
 
-	public String getTitle() {
-		return title;
-	}
-	public void setTitle(String title) {
-		this.title = title;
-	}
-	public String getDescription() {
-		return description;
-	}
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+	//fashion
+	private String material;
 
-	public int getPrice() {
-		return price;
-	}
+	private String brand;
 
-	public void setPrice(int price) {
-		this.price = price;
-	}
+	private List<ProductSize> size;
 
-	public int getDiscountedPrice() {
-		return discountedPrice;
-	}
+	private List<ProductColor> color;
 
-	public void setDiscountedPrice(int discountedPrice) {
-		this.discountedPrice = discountedPrice;
-	}
+	private Gender gender;
 
-	public int getDiscountPersent() {
-		return discountPersent;
-	}
+	//laptop
+	private String keyboardType;
 
-	public void setDiscountPersent(int discountPersent) {
-		this.discountPersent = discountPersent;
-	}
+	//mobile phone
+	private String cameraSpecifications;
 
-	public int getQuantity() {
-		return quantity;
-	}
+	//shoes
+	private String soleType;
 
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
-	}
+	//category id
+	private String categoryName;
 
-	public String getBrand() {
-		return brand;
-	}
+	//electronic devices
+	private String os;
 
-	public void setBrand(String brand) {
-		this.brand = brand;
-	}
+	private String weight;
 
-	public String getColor() {
-		return color;
-	}
+	private String dimensions;
 
-	public void setColor(String color) {
-		this.color = color;
-	}
+	private List<Storage> storage;
 
-	public String getImageUrl() {
-		return imageUrl;
-	}
+	private List<Ram> ram;
 
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
-	}
-
-	public String getTopLavelCategory() {
-		return topLavelCategory;
-	}
-
-	public void setTopLavelCategory(String topLavelCategory) {
-		this.topLavelCategory = topLavelCategory;
-	}
-
-	public String getSecondLavelCategory() {
-		return secondLavelCategory;
-	}
-
-	public void setSecondLavelCategory(String secondLavelCategory) {
-		this.secondLavelCategory = secondLavelCategory;
-	}
-
-	public String getThirdLavelCategory() {
-		return thirdLavelCategory;
-	}
-
-	public void setThirdLavelCategory(String thirdLavelCategory) {
-		this.thirdLavelCategory = thirdLavelCategory;
-	}
-
-	
-    
-    
+	private String processor;
 }
