@@ -1,2 +1,19 @@
-package com.example.ecommerce.request;public class CreateCategoryRequest {
+package com.example.ecommerce.request;
+
+public class CreateCategoryRequest {
+     private String name;
+
+    public CreateCategoryRequest() {}
+
+    public CreateCategoryRequest(String name) {
+        this.name = name;
+
+    }
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

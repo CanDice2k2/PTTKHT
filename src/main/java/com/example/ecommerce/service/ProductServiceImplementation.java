@@ -1,18 +1,13 @@
 package com.example.ecommerce.service;
 
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 import com.example.ecommerce.model.*;
+import com.example.ecommerce.repository.GenderRepository;
 import com.example.ecommerce.request.UpdateProductRequest;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.ecommerce.exception.ProductException;
@@ -26,7 +21,9 @@ public class ProductServiceImplementation implements ProductService {
 	private ProductRepository productRepository;
 	private UserService userService;
 	private CategoryRepository categoryRepository;
-	
+	private GenderRepository genderRepository;
+
+
 	public ProductServiceImplementation(ProductRepository productRepository,UserService userService,CategoryRepository categoryRepository) {
 		this.productRepository=productRepository;
 		this.userService=userService;
@@ -36,7 +33,8 @@ public class ProductServiceImplementation implements ProductService {
 
 	@Override
 	public Product createProduct(CreateProductRequest req) {
-		Category category = categoryRepository.findByName(req.getCategoryName());
+		Category category = categoryRepository.findById(req.getCategoryId())
+                                              .orElseThrow(() -> new RuntimeException("Category not found"));
 		Product product = null;
 
 		if (category.getName().equals("book")) {
@@ -48,19 +46,22 @@ public class ProductServiceImplementation implements ProductService {
 			((Book) product).setPublicationDate(req.getPublicationDate());
 		} else if (category.getName().equals("clothes")) {
 			// Add clothes
+			Optional<Gender> gender = genderRepository.findById(req.getGenderId());
 			product = new Clothes();
 			((Clothes) product).setBrand(req.getBrand());
 			((Clothes) product).setColor(req.getColor());
-			((Clothes) product).setGender(req.getGender());
+			((Clothes) product).setGender(gender.orElse(null));
 			((Clothes) product).setMaterial(req.getMaterial());
 			((Clothes) product).setSize(req.getSize());
 			((Clothes) product).setPattern(req.getPattern());
 		} else if (category.getName().equals("shoes")) {
+			Optional<Gender> gender = genderRepository.findById(req.getGenderId());
+
 			// Add shoes
 			product = new Shoes();
 			((Shoes) product).setBrand(req.getBrand());
 			((Shoes) product).setColor(req.getColor());
-			((Shoes) product).setGender(req.getGender());
+			((Shoes) product).setGender(gender.orElse(null));
 			((Shoes) product).setMaterial(req.getMaterial());
 			((Shoes) product).setSize(req.getSize());
 			((Shoes) product).setSoleType(req.getSoleType());
@@ -111,14 +112,13 @@ public class ProductServiceImplementation implements ProductService {
 
 	@Override
 	public String deleteProduct(Long productId) throws ProductException {
-		
-//		Product product=findProductById(productId);
+		Product product=findProductById(productId);
 //		System.out.println("product - "+product);
 //		System.out.println("delete product "+product.getId()+" - "+productId);
 //		product.getSizes().clear();
 ////		productRepository.save(product);
 ////		product.getCategory().
-//		productRepository.delete(product);
+		productRepository.delete(product);
 		
 		return "Product deleted Successfully";
 	}
