@@ -1,6 +1,7 @@
 package com.example.ecommerce.service;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,10 +25,12 @@ public class ProductServiceImplementation implements ProductService {
 	private GenderRepository genderRepository;
 
 
-	public ProductServiceImplementation(ProductRepository productRepository,UserService userService,CategoryRepository categoryRepository) {
+	public ProductServiceImplementation(ProductRepository productRepository,UserService userService,CategoryRepository categoryRepository, GenderRepository genderRepository) {
 		this.productRepository=productRepository;
 		this.userService=userService;
 		this.categoryRepository=categoryRepository;
+		this.genderRepository=genderRepository;
+
 	}
 	
 
@@ -37,58 +40,104 @@ public class ProductServiceImplementation implements ProductService {
                                               .orElseThrow(() -> new RuntimeException("Category not found"));
 		Product product = null;
 
+
 		if (category.getName().equals("book")) {
 			// Add book
-			product = new Book();
-			((Book) product).setLanguage(req.getLanguage());
-			((Book) product).setAuthorBookList(req.getAuthorBookList());
-			((Book) product).setType(req.getType());
-			((Book) product).setPublicationDate(req.getPublicationDate());
+			product = new Product();
+			product.setLanguage(req.getLanguage());
+			product.setType(req.getType());
+			product.setPublicationDate(req.getPublicationDate());
+			if (product.getProductAuthorBook() == null) {
+				product.setProductAuthorBook(new ArrayList<>());
+			}
+			if (req.getAuthorBookList() != null && !req.getAuthorBookList().isEmpty()) {
+				for (AuthorBook authorbook : req.getAuthorBookList()) {
+					authorbook.setId(null);
+					authorbook.setProduct(product);
+					if (!product.getProductAuthorBook().contains(authorbook)) {
+						product.getProductAuthorBook().add(authorbook);
+					}
+				}
+			}
+
 		} else if (category.getName().equals("clothes")) {
 			// Add clothes
 			Optional<Gender> gender = genderRepository.findById(req.getGenderId());
-			product = new Clothes();
-			((Clothes) product).setBrand(req.getBrand());
-			((Clothes) product).setColor(req.getColor());
-			((Clothes) product).setGender(gender.orElse(null));
-			((Clothes) product).setMaterial(req.getMaterial());
-			((Clothes) product).setSize(req.getSize());
-			((Clothes) product).setPattern(req.getPattern());
+			product = new Product();
+			product.setBrand(req.getBrand());
+			product.setMaterial(req.getMaterial());
+			product.setPattern(req.getPattern());
+			if (gender.isPresent()) {
+				product.setGenderId(gender.get().getId());
+				product.setGender(gender.get());
+			} else {
+				product.setGenderId(null);
+			}
 		} else if (category.getName().equals("shoes")) {
 			Optional<Gender> gender = genderRepository.findById(req.getGenderId());
 
 			// Add shoes
-			product = new Shoes();
-			((Shoes) product).setBrand(req.getBrand());
-			((Shoes) product).setColor(req.getColor());
-			((Shoes) product).setGender(gender.orElse(null));
-			((Shoes) product).setMaterial(req.getMaterial());
-			((Shoes) product).setSize(req.getSize());
-			((Shoes) product).setSoleType(req.getSoleType());
+//			product = new Shoes();
+//			((Shoes) product).setBrand(req.getBrand());
+//			((Shoes) product).setColor(req.getColor());
+//			((Shoes) product).setGender(gender.orElse(null));
+//			((Shoes) product).setMaterial(req.getMaterial());
+//			((Shoes) product).setSize(req.getSize());
+//			((Shoes) product).setSoleType(req.getSoleType());
+			product = new Product();
+			product.setBrand(req.getBrand());
+			product.setMaterial(req.getMaterial());
+			product.setSoleType(req.getSoleType());
+			if (gender.isPresent()) {
+				product.setGenderId(gender.get().getId());
+				product.setGender(gender.get());
+			} else {
+				product.setGenderId(null);
+			}
 		} else if (category.getName().equals("laptop")) {
+			Optional<Gender> gender = genderRepository.findById(req.getGenderId());
+
 			// Add laptop
-			product = new Laptop();
-			((Laptop) product).setOs(req.getOs());
-			((Laptop) product).setBrand(req.getBrand());
-			((Laptop) product).setWeight(req.getWeight());
-			((Laptop) product).setDimensions(req.getDimensions());
-			((Laptop) product).setColor(req.getColor());
-			((Laptop) product).setStorage(req.getStorage());
-			((Laptop) product).setRam(req.getRam());
-			((Laptop) product).setProcessor(req.getProcessor());
-			((Laptop) product).setKeyboardType(req.getKeyboardType());
+			product = new Product();
+
+			product.setOs(req.getOs());
+			product.setBrand(req.getBrand());
+			product.setWeight(req.getWeight());
+			product.setDimensions(req.getDimensions());
+			product.setProcessor(req.getProcessor());
+			product.setKeyboardType(req.getKeyboardType());
+			product.setLanguage(req.getLanguage());
+			product.setMaterial(req.getMaterial());
+			product.setSoleType(req.getSoleType());
+			product.setCameraSpecifications(req.getCameraSpecifications());
+			product.setType(req.getType());
+			product.setPublicationDate(req.getPublicationDate());
+			if (gender.isPresent()) {
+				product.setGenderId(gender.get().getId());
+				product.setGender(gender.get());
+			} else {
+				product.setGenderId(null);
+			}
+
 		} else if (category.getName().equals("mobile phone")) {
 			// Add mobile phone
-			product = new MobilePhone();
-			((MobilePhone) product).setOs(req.getOs());
-			((MobilePhone) product).setBrand(req.getBrand());
-			((MobilePhone) product).setWeight(req.getWeight());
-			((MobilePhone) product).setDimensions(req.getDimensions());
-			((MobilePhone) product).setColor(req.getColor());
-			((MobilePhone) product).setStorage(req.getStorage());
-			((MobilePhone) product).setRam(req.getRam());
-			((MobilePhone) product).setProcessor(req.getProcessor());
-			((MobilePhone) product).setCameraSpecifications(req.getCameraSpecifications());
+			product = new Product();
+//			((MobilePhone) product).setOs(req.getOs());
+//			((MobilePhone) product).setBrand(req.getBrand());
+//			((MobilePhone) product).setWeight(req.getWeight());
+//			((MobilePhone) product).setDimensions(req.getDimensions());
+//			((MobilePhone) product).setColor(req.getColor());
+//			((MobilePhone) product).setStorage(req.getStorage());
+//			((MobilePhone) product).setRam(req.getRam());
+//			((MobilePhone) product).setProcessor(req.getProcessor());
+//			((MobilePhone) product).setCameraSpecifications(req.getCameraSpecifications());
+
+			product.setOs(req.getOs());
+			product.setBrand(req.getBrand());
+			product.setWeight(req.getWeight());
+			product.setDimensions(req.getDimensions());
+			product.setProcessor(req.getProcessor());
+			product.setCameraSpecifications(req.getCameraSpecifications());
 		}
 
 		if (product != null) {
@@ -96,14 +145,74 @@ public class ProductServiceImplementation implements ProductService {
 			product.setName(req.getName());
 			product.setPrice(req.getPrice());
 
-			// Set the product reference in each ProductImage
-			for (ProductImage image : req.getProductImageList()) {
-				image.setProduct(product);
+			if (product.getProductImageList() == null) {
+				product.setProductImageList(new ArrayList<>());
+			}
+			if (req.getProductImageList() != null && !req.getProductImageList().isEmpty()) {
+				for (ProductImage image : req.getProductImageList()) {
+					image.setId(null);
+					image.setProduct(product);
+					if (!product.getProductImageList().contains(image)) {
+						product.getProductImageList().add(image);
+					}
+				}
 			}
 
-			product.setProductImageList(req.getProductImageList());
+			if (product.getProductColorList() == null) {
+				product.setProductColorList(new ArrayList<>());
+			}
+			if (req.getProductColorList() != null && !req.getProductColorList().isEmpty()) {
+				for (ProductColor color : req.getProductColorList()) {
+					color.setId(null);
+					color.setProduct(product);
+					if (!product.getProductColorList().contains(color)) {
+						product.getProductColorList().add(color);
+					}
+				}
+			}
+
+			if (product.getProductSizeList() == null) {
+				product.setProductSizeList(new ArrayList<>());
+			}
+			if (req.getProductSizeList() != null && !req.getProductSizeList().isEmpty()) {
+				for (ProductSize size : req.getProductSizeList()) {
+					size.setId(null);
+					size.setProduct(product);
+					if (!product.getProductSizeList().contains(size)) {
+						product.getProductSizeList().add(size);
+					}
+				}
+			}
+
+			if (product.getProductRamList() == null) {
+				product.setProductRamList(new ArrayList<>());
+			}
+			if (req.getRam() != null && !req.getRam().isEmpty()) {
+				for (Ram ram : req.getRam()) {
+					ram.setId(null);
+					ram.setProduct(product);
+					if (!product.getProductRamList().contains(ram)) {
+						product.getProductRamList().add(ram);
+					}
+				}
+			}
+
+			if (product.getProductStorageList() == null) {
+				product.setProductStorageList(new ArrayList<>());
+			}
+			if (req.getStorage() != null && !req.getStorage().isEmpty()) {
+				for (Storage storage : req.getStorage()) {
+					storage.setId(null);
+					storage.setProduct(product);
+					if (!product.getProductStorageList().contains(storage)) {
+						product.getProductStorageList().add(storage);
+					}
+				}
+			}
+
 			product.setDescription(req.getDescription());
 			product.setQuantityInStock(req.getQuantityInStock());
+			System.out.print(product.toString());
 			return productRepository.save(product);
 		}
 

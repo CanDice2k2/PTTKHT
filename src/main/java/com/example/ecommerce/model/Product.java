@@ -20,63 +20,95 @@ public class Product {
     @JoinColumn(name = "category_id")
     private Category category;
 
-        @Column(name = "name")
-        private String name;
+    @Column(name = "name")
+    private String name;
 
-        @Column(name = "description")
-        private String description;
+    @Column(name = "description")
+    private String description;
 
-        @Column(name = "quantity_in_stock")
-        private int quantityInStock;
+    @Column(name = "quantity_in_stock")
+    private int quantityInStock;
 
-        @Column(name = "price")
-        private float price;
+    @Column(name = "price")
+    private float price;
 
-        @Column(name = "type")
-        private String type;
+    @Column(name = "type")
+    private String type;
 
-        @Column(name = "publication_date")
-        private LocalDate publicationDate;
+    @Column(name = "publication_date")
+    private LocalDate publicationDate;
 
-        @Column(name = "language")
-        private String language;
+    public Gender getGender() {
+        return gender;
+    }
 
-        @Column(name = "brand")
-        private String brand;
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
 
-        @Column(name = "os")
-        private String os;
+    public Long getGenderId() {
+        return genderId;
+    }
 
-        @Column(name = "weight")
-        private String weight;
+    public void setGenderId(Long genderId) {
+        this.genderId = genderId;
+    }
 
-        @Column(name = "dimensions")
-        private String dimensions;
+    public List<Storage> getProductStorageList() {
+        return productStorageList;
+    }
 
-        @Column(name = "processor")
-        private String processor;
+    public void setProductStorageList(List<Storage> productStorageList) {
+        this.productStorageList = productStorageList;
+    }
 
-        @Column(name = "keyboard_type")
-        private String keyboardType;
+    public List<Ram> getProductRamList() {
+        return productRamList;
+    }
 
-        @Column(name = "camera_specifications")
-        private String cameraSpecifications;
+    public void setProductRamList(List<Ram> productRamList) {
+        this.productRamList = productRamList;
+    }
 
-        @Column(name = "material")
-        private String material;
+    @Column(name = "language")
+    private String language;
 
-        @ManyToOne
-        @JoinColumn(name = "gender_id")
-        private Gender gender;
+    @Column(name = "brand")
+    private String brand;
 
-        @Column(name = "gender_id", insertable = false, updatable = false)
-        private Long genderId;
+    @Column(name = "os")
+    private String os;
 
-        @Column(name = "pattern")
-        private String pattern;
+    @Column(name = "weight")
+    private String weight;
 
-        @Column(name = "sole_type")
-        private String soleType;
+    @Column(name = "dimensions")
+    private String dimensions;
+
+    @Column(name = "processor")
+    private String processor;
+
+    @Column(name = "keyboard_type")
+    private String keyboardType;
+
+    @Column(name = "camera_specifications")
+    private String cameraSpecifications;
+
+    @Column(name = "material")
+    private String material;
+
+    @ManyToOne
+    @JoinColumn(name = "gender_id")
+    private Gender gender;
+
+    @Column(name = "gender_id", insertable = false, updatable = false)
+    private Long genderId;
+
+    @Column(name = "pattern")
+    private String pattern;
+
+    @Column(name = "sole_type")
+    private String soleType;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProductImage> productImageList;
@@ -111,7 +143,24 @@ public class Product {
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProductSize> productSizeList;
 
-        public Long getId() {
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Storage> productStorageList;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Ram> productRamList;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<AuthorBook> productAuthorBook;
+
+    public List<AuthorBook> getProductAuthorBook() {
+        return productAuthorBook;
+    }
+
+    public void setProductAuthorBook(List<AuthorBook> productAuthorBook) {
+        this.productAuthorBook = productAuthorBook;
+    }
+
+    public Long getId() {
             return id;
         }
 

@@ -46,12 +46,20 @@ public class CreateProductRequest {
         this.productImageList = productImageList;
     }
 
-    public List<ProductColor> getColor() {
-        return color;
+    public List<ProductSize> getProductSizeList() {
+        return productSizeList;
     }
 
-    public void setColor(List<ProductColor> color) {
-        this.color = color;
+    public void setProductSizeList(List<ProductSize> productSizeList) {
+        this.productSizeList = productSizeList;
+    }
+
+    public List<ProductColor> getProductColorList() {
+        return productColorList;
+    }
+
+    public void setProductColorList(List<ProductColor> productColorList) {
+        this.productColorList = productColorList;
     }
 
     public List<AuthorBook> getAuthorBookList() {
@@ -62,13 +70,6 @@ public class CreateProductRequest {
         this.authorBookList = authorBookList;
     }
 
-    public List<ProductSize> getSize() {
-        return size;
-    }
-
-    public void setSize(List<ProductSize> size) {
-        this.size = size;
-    }
 
     public List<Ram> getRam() {
         return ram;
@@ -87,9 +88,9 @@ public class CreateProductRequest {
     }
 
     private List<Ram> ram;
-	private List<ProductSize> size;
+	private List<ProductSize> productSizeList;
 	private List<AuthorBook> authorBookList;
-	private List<ProductColor> color;
+	private List<ProductColor> productColorList;
 	private List<ProductImage> productImageList;
 
 
